@@ -33,7 +33,8 @@ requirejs.config({
 require(['jquery'
     ,'app/app'
     ,'app/main/main'
-    ,'app/account/account'],function($,app){    
+    ,'app/account/account',
+     'app/admin/admin'],function($,app){    
     app.initialize($('body')[0]);
 });
 
