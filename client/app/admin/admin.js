@@ -1,6 +1,7 @@
-'use strict';
-
-angular.module('jcrSmartAdminApp')
+define(['app/app'
+,'app/admin/admin.controller'],function(app){
+   'use strict';
+app
   .config(function ($stateProvider) {
     $stateProvider
       .state('admin', {
@@ -8,4 +9,5 @@ angular.module('jcrSmartAdminApp')
         templateUrl: 'app/admin/admin.html',
         controller: 'AdminCtrl'
       });
-  });
+  }); 
+});

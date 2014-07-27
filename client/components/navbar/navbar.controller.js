@@ -1,6 +1,7 @@
-'use strict';
+define(['app/modules/controllers'],function(controllers){
+   'use strict';
 
-angular.module('jcrSmartAdminApp')
+controllers
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
       'title': 'Home',
@@ -20,4 +21,5 @@ angular.module('jcrSmartAdminApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
-  });
+  }); 
+});

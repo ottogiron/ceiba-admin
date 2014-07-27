@@ -1,6 +1,9 @@
+define(['app/modules/controllers',
+    'components/navbar/navbar.controller',
+    ,'components/socket/socket.service'],function(controllers){
 'use strict';
 
-angular.module('jcrSmartAdminApp')
+controllers
   .controller('MainCtrl', function ($scope, $http, socket) {
     $scope.awesomeThings = [];
 
@@ -24,4 +27,7 @@ angular.module('jcrSmartAdminApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
-  });
+  });    
+});
+
+

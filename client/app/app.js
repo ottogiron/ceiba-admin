@@ -1,13 +1,24 @@
+define(['modules/base-app',       
+       'angular.resource',
+       'angular.cookies',
+       'angular.sanitize',
+       'angular.ui-bootstrap-tpls',         
+       'angular.ui-router',
+       ,'components/auth/auth.service'],function(baseApp){
+       
 'use strict';
 
-angular.module('jcrSmartAdminApp', [
+var app = baseApp.create('jcrSmartAdminApp',[
   'ngCookies',
   'ngResource',
-  'ngSanitize',
-  'btford.socket-io',
+  'ngSanitize',  
   'ui.router',
-  'ui.bootstrap'
-])
+  'ui.bootstrap',
+  'jcrSmartAdmin.controllers',
+  'jcrSmartAdmin.services'
+]);
+
+app
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
       .otherwise('/');
@@ -41,7 +52,6 @@ angular.module('jcrSmartAdminApp', [
       }
     };
   })
-
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
@@ -52,3 +62,8 @@ angular.module('jcrSmartAdminApp', [
       });
     });
   });
+  
+  return app;
+
+});
+

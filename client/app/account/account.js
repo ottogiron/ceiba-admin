@@ -1,6 +1,9 @@
-'use strict';
-
-angular.module('jcrSmartAdminApp')
+define(['app/app'
+,'app/account/login/login.controller'
+,'app/account/settings/settings.controller'
+,'app/account/signup/signup.controller'],function(app){
+   'use strict';
+app
   .config(function ($stateProvider) {
     $stateProvider
       .state('login', {
@@ -19,4 +22,5 @@ angular.module('jcrSmartAdminApp')
         controller: 'SettingsCtrl',
         authenticate: true
       });
-  });
+  }); 
+});

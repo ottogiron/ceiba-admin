@@ -455,12 +455,12 @@ module.exports = function (grunt) {
           endtag: '<!-- endinjector -->'
         },
         files: {
-          '<%= yeoman.client %>/index.html': [
-              ['{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-               '!{.tmp,<%= yeoman.client %>}/app/app.js',
-               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
-               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
-            ]
+//          '<%= yeoman.client %>/index.html': [
+//              ['{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
+//               '!{.tmp,<%= yeoman.client %>}/app/app.js',
+//               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
+//               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
+//            ]
         }
       },
 

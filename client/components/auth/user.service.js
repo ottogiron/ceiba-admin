@@ -1,6 +1,6 @@
+define(['app/modules/services'],function(services){
 'use strict';
-
-angular.module('jcrSmartAdminApp')
+services
   .factory('User', function ($resource) {
     return $resource('/api/users/:id/:controller', {
       id: '@_id'
@@ -20,3 +20,5 @@ angular.module('jcrSmartAdminApp')
       }
 	  });
   });
+});
+

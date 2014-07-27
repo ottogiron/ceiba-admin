@@ -1,6 +1,7 @@
-'use strict';
+define(['app/modules/controllers'],function(controllers){
+  'use strict';
 
-angular.module('jcrSmartAdminApp')
+controllers
   .controller('SignupCtrl', function ($scope, Auth, $location, $window) {
     $scope.user = {};
     $scope.errors = {};
@@ -35,3 +36,5 @@ angular.module('jcrSmartAdminApp')
       $window.location.href = '/auth/' + provider;
     };
   });
+  
+});

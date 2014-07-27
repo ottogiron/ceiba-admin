@@ -1,6 +1,9 @@
-'use strict';
-
-angular.module('jcrSmartAdminApp')
+define(['app/modules/controllers'
+       ,'components/auth/auth.service'
+       ,'components/auth/user.service'],function(controllers){
+    'use strict';
+    
+controllers
   .controller('SettingsCtrl', function ($scope, User, Auth) {
     $scope.errors = {};
 
@@ -19,3 +22,5 @@ angular.module('jcrSmartAdminApp')
       }
 		};
   });
+});
+

@@ -1,6 +1,8 @@
-'use strict';
+define(['app/modules/services',
+        'components/auth/user.service'],function(services){
+ 'use strict';
 
-angular.module('jcrSmartAdminApp')
+services
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
     if($cookieStore.get('token')) {
@@ -144,3 +146,5 @@ angular.module('jcrSmartAdminApp')
       }
     };
   });
+    
+});
