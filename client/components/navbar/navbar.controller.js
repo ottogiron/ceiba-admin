@@ -6,6 +6,10 @@ controllers
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
+    },
+    {
+        'title': 'Workbench',
+        'link': '/workbench'
     }];
 
     $scope.isCollapsed = true;

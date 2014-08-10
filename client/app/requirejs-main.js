@@ -11,6 +11,7 @@ requirejs.config({
        'loadash': 'bower_components/lodash/dist/lodash.compat',
        'angular.socket-io': 'bower_components/angular-socket-io/socket',
        'angular.ui-router': 'bower_components/angular-ui-router/release/angular-ui-router',
+       'angular.ui-tree' : 'bower_components/angular-ui-tree/dist/angular-ui-tree',
        'modules': 'app/modules'
        
     },
@@ -21,12 +22,13 @@ requirejs.config({
         'socket.io':{
             exports: 'io'
         },
-        'angular.resource': {deps:['angular']},
-        'angular.cookies': {deps:['angular']},
-        'angular.sanitize': {deps:['angular']},
-        'angular.ui-bootstrap-tpls': {deps:['angular']},
-        'angular.ui-router': {deps:['angular']},
-        'angular.socket-io': {deps: ['angular','socket.io']}
+        'angular.resource': ['angular'],
+        'angular.cookies': ['angular'],
+        'angular.sanitize': ['angular'],
+        'angular.ui-bootstrap-tpls': ['angular'],
+        'angular.ui-tree': ['angular'],
+        'angular.ui-router': ['angular'],
+        'angular.socket-io': ['angular','socket.io']
     }
 });
 
@@ -34,7 +36,8 @@ require(['jquery'
     ,'app/app'
     ,'app/main/main'
     ,'app/account/account',
-     'app/admin/admin'],function($,app){    
+     'app/admin/admin'
+    ,'app/workbench/workbench'],function($,app){    
     app.initialize($('body')[0]);
 });
 
