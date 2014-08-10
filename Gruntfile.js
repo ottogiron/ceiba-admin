@@ -48,7 +48,7 @@ module.exports = function (grunt) {
     watch: {
       injectJS: {
         files: [
-          '<%= yeoman.client %>/{app,components}/**/*.js',
+        //  '<%= yeoman.client %>/{app,components}/**/*.js',
           '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
           '!<%= yeoman.client %>/{app,components}/**/*.mock.js',
           '!<%= yeoman.client %>/app/app.js'],
@@ -531,7 +531,7 @@ module.exports = function (grunt) {
         'injector:less', 
         'concurrent:server',
         'injector',
-        'bowerInstall',
+      //  'bowerInstall',
         'autoprefixer',
         'concurrent:debug'
       ]);
@@ -543,7 +543,7 @@ module.exports = function (grunt) {
       'injector:less', 
       'concurrent:server',
       'injector',
-      'bowerInstall',
+     // 'bowerInstall',
       'autoprefixer',
       'express:dev',
       'wait',
@@ -586,7 +586,7 @@ module.exports = function (grunt) {
         'injector:less', 
         'concurrent:test',
         'injector',
-        'bowerInstall',
+       // 'bowerInstall',
         'autoprefixer',
         'express:dev',
         'protractor'
@@ -604,7 +604,7 @@ module.exports = function (grunt) {
     'injector:less', 
     'concurrent:dist',
     'injector',
-    'bowerInstall',
+    // 'bowerInstall',
     'useminPrepare',
     'autoprefixer',
     'ngtemplates',
