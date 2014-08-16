@@ -12,6 +12,8 @@ requirejs.config({
        'angular.socket-io': 'bower_components/angular-socket-io/socket',
        'angular.ui-router': 'bower_components/angular-ui-router/release/angular-ui-router',
        'angular.ui-tree' : 'bower_components/angular-ui-tree/dist/angular-ui-tree',
+       'restangular': 'bower_components/restangular/dist/restangular',
+       'angular-tree-control': 'bower_components/angular-tree-control/angular-tree-control',
        'modules': 'app/modules'
        
     },
@@ -28,7 +30,9 @@ requirejs.config({
         'angular.ui-bootstrap-tpls': ['angular'],
         'angular.ui-tree': ['angular'],
         'angular.ui-router': ['angular'],
-        'angular.socket-io': ['angular','socket.io']
+        'angular.socket-io': ['angular','socket.io'],
+        'restangular': ['angular'],
+        'angular-tree-control': ['angular']
     }
 });
 

@@ -6,47 +6,26 @@ define(['angular', 'app/modules/controllers'
     'use strict';
 
     controllers
-            .controller('WorkbenchCtrl', ['$scope', '$http', 'Auth', 'User', function($scope, $http, Auth, User) {
-                    $scope.data = [
-                        {
-                            "id": 3,
-                            "title": "node3",
-                            "nodes": [
-                                {
-                                    "id": 31,
-                                    "title": "node3.1",
-                                    "nodes": []
-                                }
-                            ]
-                        },
-                        {
-                            "id": 4,
-                            "title": "node4",
-                            "nodes": [
-                                {
-                                    "id": 41,
-                                    "title": "node4.1",
-                                    "nodes": []
-                                }
-                            ]
-                        },
-                        {
-                            "id": 2,
-                            "title": "node2",
-                            "nodes": [
-                                {
-                                    "id": 21,
-                                    "title": "node2.1",
-                                    "nodes": []
-                                }
-                            ]
-                        }
-                    ];
-                
-             
-                   
-                   
-                }]);
+            .controller('WorkbenchCtrl', 
+        ['$scope', '$http', 'Auth', 'User','Restangular', function($scope, $http, Auth, User,Restangular) {
+            var baseTree = Restangular.all('api/trees');
+
+            //Get the root tree
+            baseTree.getList().then(function(rootTree){
+               rootTree[0].children = [];              
+               $scope.trees =  rootTree;                
+            });
+            
+            $scope.showSelected = function(node){
+                baseTree.all('children').post({path:node.path})
+                        .then(function(children){
+                    node.children = children;
+                    $scope.expandedNodes.push(node);
+                });
+               
+            };             
+            
+    }]);
 
 
 });

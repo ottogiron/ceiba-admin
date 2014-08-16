@@ -2,13 +2,9 @@
     <core-header-panel navigation flex mode="seamed">
         <core-toolbar>Application</core-toolbar>       
         <div>
-            <div ui-tree
-                 id="tree-root"
-                 data-drag-enabled="false">
-                <ol ui-tree-nodes="" ng-model="data">
-                    <li ng-repeat="node in data" ui-tree-node data-collapsed="true"  ng-include="'app/workbench/components/nodes_renderer.html'"></li>
-                </ol>
-            </div>
+            <treecontrol class="tree-classic" tree-model="trees" on-selection="showSelected(node)">
+               Select: {{node.name || node.path}}
+            </treecontrol>
         </div>
     </core-header-panel>
     <div tool>Workbench</div>  
