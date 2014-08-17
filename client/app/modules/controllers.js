@@ -1,5 +1,5 @@
-define(['angular'],function(angular){
+define(['angular','app/modules/directives'],function(angular){
     'use strict';
-    var controllers = angular.module('jcrSmartAdmin.controllers',[]);
+    var controllers = angular.module('jcrSmartAdmin.controllers',['jcrSmartAdmin.directives']);
     return controllers;
 });

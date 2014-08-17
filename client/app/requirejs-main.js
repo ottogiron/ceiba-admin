@@ -14,7 +14,8 @@ requirejs.config({
        'angular.ui-tree' : 'bower_components/angular-ui-tree/dist/angular-ui-tree',
        'restangular': 'bower_components/restangular/dist/restangular',
        'angular-tree-control': 'bower_components/angular-tree-control/angular-tree-control',
-       'modules': 'app/modules'
+       'modules': 'app/modules',
+       'jstree': 'bower_components/jstree/dist/jstree'
        
     },
     shim: {
@@ -32,7 +33,8 @@ requirejs.config({
         'angular.ui-router': ['angular'],
         'angular.socket-io': ['angular','socket.io'],
         'restangular': ['angular'],
-        'angular-tree-control': ['angular']
+        'angular-tree-control': ['angular'],
+        'jstree': ['jquery']
     }
 });
 

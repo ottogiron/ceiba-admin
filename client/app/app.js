@@ -1,4 +1,6 @@
-define(['modules/base-app',       
+define(['modules/base-app',
+       'app/modules/services',
+       'app/modules/directives',
        'angular.resource',
        'angular.cookies',
        'angular.sanitize',
@@ -19,7 +21,7 @@ var app = baseApp.create('jcrSmartAdminApp',[
   ,'restangular',
   'treeControl',
   'jcrSmartAdmin.controllers',
-  'jcrSmartAdmin.services'
+  'jcrSmartAdmin.services'  
 ]);
 
 app

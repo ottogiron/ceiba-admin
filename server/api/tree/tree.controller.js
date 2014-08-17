@@ -19,8 +19,9 @@ exports.index = function(req, res) {
     });
 };
 
-exports.getChildren = function(req,res){    
-    rootService.getTree(req.body.path,function(err,tree){
+exports.getChildren = function(req,res){
+    var path = decodeURIComponent(req.params.id);
+    rootService.getTree(path,function(err,tree){
       if(err){return handleError(res, err);}
       if(!tree) { return res.send(404); }
       treeService.getChildren(tree,function(err,children){

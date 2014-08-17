@@ -2,13 +2,10 @@
     <core-header-panel navigation flex mode="seamed">
         <core-toolbar>Application</core-toolbar>       
         <div>
-            <treecontrol class="tree-classic" tree-model="trees" on-selection="showSelected(node)">
-               Select: {{node.name || node.path}}
-            </treecontrol>
+            <div  jum-js-tree></div>
         </div>
     </core-header-panel>
     <div tool>Workbench</div>  
     <div>
-        
     </div>
 </core-scaffold>
