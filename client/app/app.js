@@ -17,8 +17,8 @@ var app = baseApp.create('jcrSmartAdminApp',[
   'ngResource',
   'ngSanitize',  
   'ui.router',
-  'ui.bootstrap',  
-  ,'restangular',
+  'ui.bootstrap',
+  'restangular',
   'treeControl',
   'jcrSmartAdmin.controllers',
   'jcrSmartAdmin.services'  

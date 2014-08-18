@@ -32,7 +32,7 @@ requirejs.config({
         'angular.ui-tree': ['angular'],
         'angular.ui-router': ['angular'],
         'angular.socket-io': ['angular','socket.io'],
-        'restangular': ['angular'],
+        'restangular': ['angular','loadash'],
         'angular-tree-control': ['angular'],
         'jstree': ['jquery']
     }
@@ -43,8 +43,10 @@ require(['jquery'
     ,'app/main/main'
     ,'app/account/account',
      'app/admin/admin'
-    ,'app/workbench/workbench'],function($,app){    
-    app.initialize($('body')[0]);
+    ,'app/workbench/workbench'],function($,app){
+    $(function(){
+        app.initialize($('body')[0]);
+    });    
 });
 
 
