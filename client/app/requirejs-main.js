@@ -12,8 +12,7 @@ requirejs.config({
        'angular.socket-io': 'bower_components/angular-socket-io/socket',
        'angular.ui-router': 'bower_components/angular-ui-router/release/angular-ui-router',
        'angular.ui-tree' : 'bower_components/angular-ui-tree/dist/angular-ui-tree',
-       'restangular': 'bower_components/restangular/dist/restangular',
-       'angular-tree-control': 'bower_components/angular-tree-control/angular-tree-control',
+       'restangular': 'bower_components/restangular/dist/restangular',       
        'modules': 'app/modules',
        'jstree': 'bower_components/jstree/dist/jstree'
        
@@ -44,9 +43,9 @@ require(['jquery'
     ,'app/account/account',
      'app/admin/admin'
     ,'app/workbench/workbench'],function($,app){
-    $(function(){
-        app.initialize($('body')[0]);
-    });    
+    
+     app.initialize($('body')[0]);
+       
 });
 
 

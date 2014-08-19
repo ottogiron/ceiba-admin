@@ -6,8 +6,7 @@ define(['modules/base-app',
        'angular.sanitize',
        'angular.ui-bootstrap-tpls',         
        'angular.ui-router',       
-       'restangular',
-       'angular-tree-control',
+       'restangular',       
        'components/auth/auth.service'],function(baseApp){
        
 'use strict';
@@ -18,8 +17,7 @@ var app = baseApp.create('jcrSmartAdminApp',[
   'ngSanitize',  
   'ui.router',
   'ui.bootstrap',
-  'restangular',
-  'treeControl',
+  'restangular',  
   'jcrSmartAdmin.controllers',
   'jcrSmartAdmin.services'  
 ]);
