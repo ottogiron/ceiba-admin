@@ -1,5 +1,8 @@
-define(['angular','app/modules/directives'],function(angular){
+define(['angular'
+    ,'app/modules/directives'
+    ,'angular.ui-bootstrap-tpls']
+,function(angular){
     'use strict';
-    var controllers = angular.module('jcrSmartAdmin.controllers',['jcrSmartAdmin.directives']);
+    var controllers = angular.module('jcrSmartAdmin.controllers',['jcrSmartAdmin.directives','ui.bootstrap']);
     return controllers;
 });

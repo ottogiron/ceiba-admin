@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{nodeAction.actionLabel}}</h3>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <label class="control-label" for="txtNewNodeName">Name</label>
+        <input type="text" class="form-control" id="txtNewNodeName" ng-model="node.name"/>
+        <label class="control-label" for="txtNewNodeType">Node Type</label>
+        <select class="form-control" id="txtNewNodeType"  ng-model="node.type">
+            <option ng-repeat="nodeType in nodeTypes" value="{{nodeType.name}}">{{nodeType.name}}</option>
+        </select>
+    </div>    
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

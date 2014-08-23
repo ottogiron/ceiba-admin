@@ -21,7 +21,26 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                 $(element).jstree({
                     core: {
                         data: loadData
+                    },
+                    "plugins" : [
+                        "contextmenu", "dnd", "search",
+                        "state", "types", "wholerow"
+                     ],
+                    contextmenu: {                        
+                        items: function($node){
+                            return {
+                                "Create": {
+                                    "separator_after": true,
+                                    label: "Create",
+                                    "action": function(obj){
+                                        scope.createNode($node,obj);
+                                    }
+                                    
+                                }
+                            }
+                        }
                     }
+                   
                 });
                 
                 function loadData(obj,cb){

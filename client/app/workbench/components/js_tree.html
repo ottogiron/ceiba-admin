@@ -1,6 +1,0 @@
-<ul ng-repeat="tree in trees">
-    <li>
-        {{tree.name || tree.path}}
-        <div ng-repeat="tree in tree.children" ng-include="'app/workbench/components/js_tree.html'"></div>
-    </li>
-</ul>
