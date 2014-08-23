@@ -1,23 +1,10 @@
 define(['app/modules/directives','jquery','jstree'],function(directives,$){
     directives.
         directive('jumJsTree',['$timeout',function($timeout){
-            function link(scope,element,attrs){
-                function transformtoJSTree(trees) {
-                    return _.map(trees, function(tree) {
-                        tree.text = tree.name || tree.path;
-                        tree.id = tree.path;
-                        tree.children = true;
-                        if(tree.path){
-                            return {
-                                id: tree.path,
-                                text: tree.name || tree.path,
-                                children: true
-                            };
-                        }
-                        
-                    });
-                }
+            function link(scope,element,attrs){ 
+               
                 
+                //initialize jstree
                 $(element).jstree({
                     core: {
                         data: loadData
@@ -27,24 +14,29 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                         "state", "types", "wholerow"
                      ],
                     contextmenu: {                        
-                        items: function($node){
+                        items: function($tree){
                             return {
                                 "Create": {
                                     "separator_after": true,
                                     label: "Create",
                                     "action": function(obj){
-                                        scope.createNode($node,obj);
+                                        scope.createTree($tree,obj);
                                     }
                                     
+                                },
+                                "Delete": {
+                                    label: "Delete",
+                                    "action": function(obj){
+                                        scope.deleteTree($tree,obj);
+                                    }
                                 }
-                            }
+                            };
                         }
                     }
                    
                 });
                 
-                function loadData(obj,cb){
-                    
+                function loadData(obj,cb){                    
                     if(scope.loadTree){
                         scope.loadTree(obj,function(trees){
                             var newTree = transformtoJSTree(trees);
@@ -53,9 +45,21 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                     }
                     else{
                         cb.call(this,[]);
-                    }
-                    
+                    }                   
                 }
+                
+                function transformtoJSTree(trees) {
+                    return _.map(trees, function(tree) {                      
+                        if(tree.path){
+                            return {
+                                id: tree.path,
+                                text: tree.name || tree.path,
+                                children: true
+                            };
+                        }
+                        
+                    });
+                } 
 
 //                scope.$watch('trees',function(value){
 //                       if(value){

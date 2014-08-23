@@ -2,6 +2,7 @@ requirejs.config({
    'baseUrl': '..',
     paths: {
        'jquery': "bower_components/jquery/dist/jquery",
+       'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
        'socket.io': 'socket.io/socket.io', 
        'angular': "bower_components/angular/angular",
        'angular.resource': 'bower_components/angular-resource/angular-resource',
@@ -14,7 +15,8 @@ requirejs.config({
        'angular.ui-tree' : 'bower_components/angular-ui-tree/dist/angular-ui-tree',
        'restangular': 'bower_components/restangular/dist/restangular',       
        'modules': 'app/modules',
-       'jstree': 'bower_components/jstree/dist/jstree'
+       'jstree': 'bower_components/jstree/dist/jstree',
+       'bootbox': 'bower_components/bootbox/bootbox'
        
     },
     shim: {
@@ -23,6 +25,10 @@ requirejs.config({
         },
         'socket.io':{
             exports: 'io'
+        },
+        'bootbox': {
+            exports: 'bootbox',
+            'deps': ['jquery','bootstrap']
         },
         'angular.resource': ['angular'],
         'angular.cookies': ['angular'],
@@ -33,7 +39,9 @@ requirejs.config({
         'angular.socket-io': ['angular','socket.io'],
         'restangular': ['angular','loadash'],
         'angular-tree-control': ['angular'],
-        'jstree': ['jquery']
+        'jstree': ['jquery'],
+        'bootstrap': ['jquery']
+        
     }
 });
 

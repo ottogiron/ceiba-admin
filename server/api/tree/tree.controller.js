@@ -3,10 +3,11 @@
 var _ = require('lodash');
 var Tree = require('./tree.model');
 var jcrOakAPI = require('jcr-oak-api');
+var tree_types = jcrOakAPI.tree_types;
 var jcrConnectionFactory =  require('../../jcr/connection');
 
-var connection = jcrConnectionFactory.getConnection();
 
+var connection = jcrConnectionFactory.getConnection();
 var treeService = jcrOakAPI.getTTreeService(connection);
 var rootService = jcrOakAPI.getTRootService(connection);
 // Get list of trees
@@ -43,10 +44,15 @@ exports.show = function(req, res) {
 
 // Creates a new tree in the DB.
 exports.create = function(req, res) {
-  Tree.create(req.body, function(err, tree) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, tree);
+  rootService.getTree(req.body.parentPath,function(err,parentTree){
+      if(err || !parentTree.exists) { return handleError(res,err);}
+      var children = new tree_types.TTree({path: req.body.parentPath });
+      treeService.addChild(req.body.name,children,function(err,tree){
+        if(err) { return handleError(res, err); }
+        return res.json(201, tree);
+    });
   });
+  
 };
 
 // Updates an existing tree in the DB.
@@ -65,14 +71,15 @@ exports.update = function(req, res) {
 
 // Deletes a tree from the DB.
 exports.destroy = function(req, res) {
-  Tree.findById(req.params.id, function (err, tree) {
+  var path = decodeURIComponent(req.params.id);
+  rootService.getTree(path,function(err,tree){
     if(err) { return handleError(res, err); }
     if(!tree) { return res.send(404); }
-    tree.remove(function(err) {
+    treeService.remove(tree,function(err) {
       if(err) { return handleError(res, err); }
       return res.send(204);
-    });
-  });
+    }); 
+  }); 
 };
 
 function handleError(res, err) {

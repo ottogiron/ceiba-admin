@@ -1,11 +1,12 @@
 define(['angular', 
     'app/modules/controllers',
     'loadash',
+    'bootbox',
     'app/workbench/workbench.directives'
     , 'components/auth/auth.service'
-    , 'components/auth/user.service',
+    , 'components/auth/user.service'
     
-], function(angular, controllers,_) {
+], function(angular, controllers,_,bootbox) {
 
     'use strict';    
     controllers
@@ -14,12 +15,8 @@ define(['angular',
             
             var baseTree = Restangular.all('api/trees');
             
-            function encode(text){
-                return encodeURIComponent(text);
-            }
-           
-            $scope.loadTree = function(node,cb){
-                if(node.id === '#'){
+            $scope.loadTree = function(tree,cb){
+                if(tree.id === '#'){
                     //Get the root tree
                     baseTree.getList().then(function(rootTree){                                                    
                        $scope.trees =  rootTree;
@@ -27,7 +24,7 @@ define(['angular',
                     });
                 }
                 else{
-                  var encodedPath = encode(node.id);
+                  var encodedPath = encode(tree.id);
                   baseTree.one(encodedPath).getList('children').then(function(children){
                       cb(children);
                   });
@@ -35,44 +32,75 @@ define(['angular',
             };
             
             
-            
-            $scope.createNode = function($node,obj){
-                $scope.nodeData = {
-                    path: $node.id,
+            $scope.createTree = function($tree,obj){
+                
+                $scope.treeData = {                    
                     action: 'create',
-                    actionLabel: 'Create Node'
+                    actionLabel: 'Create Tree'
                 };
+                
+                openTreeModal(function(tree){
+                    tree.parentPath = $tree.id;
+                    var encodedPath = encodeURIComponent($tree.id);
+                    Restangular.all('api/trees')
+                            .one(encodedPath)
+                            .all('children')
+                            .post(tree).then(function(response){
+                                console.log(response);
+                            });
+                });
+                
+            };
+            
+            
+            $scope.deleteTree = function($tree){
+                bootbox.confirm("Are you sure?",function(result){
+                    if(result){
+                        var encodedPath = encodeURIComponent($tree.id);
+                        Restangular.all('api/trees').one(encodedPath).remove().then(function(){
+                            
+                        });
+                    }
+                });
+            };
+            
+            
+            function openTreeModal(onresult){
                 var createModalInstance = $modal.open({
                     templateUrl: 'app/workbench/templates/createdialog.html',
-                    controller: 'ModalInstanceCtrl',
+                    controller: 'ModalInstanceTreeCtrl',
                     resolve: {
-                     nodeData: function(){
-                         return $scope.nodeData;
+                     treeData: function(){
+                         return $scope.treeData;
                      }    
                     }
                 });
 
-                createModalInstance.result.then(function(node) {
-                    console.log(node);
+                createModalInstance.result.then(function(tree) {
+                    onresult(tree);
                 }, function() {
                     console.info('Modal dismissed at: ' + new Date());
                 });
-            };           
+            }
+            
+            function encode(text){
+                return encodeURIComponent(text);
+            }
             
     }])
-    .controller('ModalInstanceCtrl',
-    ['$scope','$modalInstance','nodeData','Restangular'
-        ,function($scope,$modalInstance,nodeData,Restangular){
+    .controller('ModalInstanceTreeCtrl', ['$scope','$modalInstance','treeData','Restangular',
+        function($scope,$modalInstance,treeData,Restangular){
         
-        $scope.node = {};
+        $scope.tree = {};
         
         var jcrNodeTypesParentPath = encodeURIComponent('/jcr:system/jcr:nodeTypes');
         $scope.nodeTypes = Restangular.all('api/trees').one(jcrNodeTypesParentPath).all('children').getList().$object;        
-        $scope.nodeAction = nodeData;
+        $scope.treeAction = treeData;
         
         $scope.ok = function () {
-          $modalInstance.close($scope.node);
+          $modalInstance.close($scope.tree);
         };
+        
 
         $scope.cancel = function () {
           $modalInstance.dismiss('cancel');
