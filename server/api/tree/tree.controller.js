@@ -10,6 +10,7 @@ var jcrConnectionFactory =  require('../../jcr/connection');
 var connection = jcrConnectionFactory.getConnection();
 var treeService = jcrOakAPI.getTTreeService(connection);
 var rootService = jcrOakAPI.getTRootService(connection);
+
 // Get list of trees
 exports.index = function(req, res) {  
     //get the root tree
@@ -35,10 +36,16 @@ exports.getChildren = function(req,res){
 
 // Get a single tree
 exports.show = function(req, res) {
-  rootService.getTree(req.body.path, function(err, tree) {
+  rootService.getTree(req.params.id, function(err, tree) {
        if(err) { return handleError(res, err); }
        if(!tree) { return res.send(404); }
-       return res.json(tree);
+       treeService.getProperties(tree,function(err,properties){
+           if(err) { return handleError(res, err); }
+           if(!properties) { return res.send(404); }
+           tree.properties = properties;
+           return res.json(tree);
+       });
+       
     });
 };
 
