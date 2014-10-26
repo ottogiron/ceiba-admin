@@ -2,7 +2,8 @@ define(['angular',
     'app/modules/controllers',
     'loadash',
     'bootbox',
-    'app/workbench/workbench.directives'
+    'app/workbench/workbench.directives',
+    'app/common/directives/properties-editor'
     , 'components/auth/auth.service'
     , 'components/auth/user.service'
     
@@ -14,6 +15,8 @@ define(['angular',
         ['$scope', '$http', 'Auth', 'User','Restangular','$modal', function($scope, $http, Auth, User,Restangular,$modal) {
             
             var baseTree = Restangular.all('api/trees');
+            
+            $scope.currentTreeProperties = {};
             
             $scope.loadTree = function(tree,cb){
                 if(tree.id === '#'){
