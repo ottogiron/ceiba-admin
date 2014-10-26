@@ -60,15 +60,7 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                         
                     });
                 } 
-
-//                scope.$watch('trees',function(value){
-//                       if(value){
-//                            var nvalue = transformtoJSTree(value);
-//                            $(element).jstree({core:{
-//                              data: nvalue
-//                          }});
-//                       }                   
-//                    });                
+                
             }
             
             return {

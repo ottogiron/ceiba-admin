@@ -19,7 +19,8 @@ var app = baseApp.create('jcrSmartAdminApp',[
   'ui.bootstrap',
   'restangular',  
   'jcrSmartAdmin.controllers',
-  'jcrSmartAdmin.services'  
+  'jcrSmartAdmin.services',
+  'jcrSmartAdmin.directives'
 ]);
 
 app
