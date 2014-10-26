@@ -2,11 +2,12 @@
     <core-header-panel navigation flex mode="seamed">
         <core-toolbar>Application</core-toolbar>       
         <div>
-            <div  jum-js-tree></div>
+            <div jum-js-tree></div>
         </div>
     </core-header-panel>
     <div tool>Workbench</div>  
     <div>        
-        <jum-properties-editor ng-model="currentTree"></jum-properties-editor>
+        <div ui-view>            
+        </div>
     </div>
 </core-scaffold>

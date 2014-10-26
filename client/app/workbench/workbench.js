@@ -8,6 +8,11 @@ app
         url: '/workbench',
         templateUrl: 'app/workbench/workbench.html',
         controller: 'WorkbenchCtrl'
+      })
+      .state('workbench.editTree', {
+          url: '/tree/:id',
+          templateUrl: 'app/workbench/templates/workbench.tree-editor.html',
+          controller: 'WorkbenchTreeEditorCtrl'
       });
   }); 
 });

@@ -3,7 +3,7 @@ define(['angular',
     'loadash',
     'bootbox',
     'app/workbench/workbench.directives',
-    'app/common/directives/properties-editor'
+    'app/common/directives/tree-editor'
     , 'components/auth/auth.service'
     , 'components/auth/user.service'
     
@@ -12,7 +12,8 @@ define(['angular',
     'use strict';    
     controllers
             .controller('WorkbenchCtrl', 
-        ['$scope', '$http', 'Auth', 'User','Restangular','$modal', function($scope, $http, Auth, User,Restangular,$modal) {
+        ['$scope', '$http', 'Auth', 'User','Restangular','$modal','$state',
+    function($scope, $http, Auth, User,Restangular,$modal,$state) {
             
             var baseTree = Restangular.all('api/trees');
             
@@ -86,6 +87,12 @@ define(['angular',
                 });
             }
             
+            
+            $scope.onNodeSelected = function(node, selection, event){       
+                var selectedID = encode(selection.selected[0]);
+                $state.go('workbench.editTree',{id: selectedID});
+            };
+            
             function encode(text){
                 return encodeURIComponent(text);
             }
@@ -108,6 +115,9 @@ define(['angular',
         $scope.cancel = function () {
           $modalInstance.dismiss('cancel');
         };
+    }])
+    .controller('WorkbenchTreeEditorCtrl',['$scope','$stateParams',function($scope,$stateParams){
+       $scope.tree = $stateParams;
     }]);
 
 

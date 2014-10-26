@@ -5,7 +5,13 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                
                 
                 //initialize jstree
-                $(element).jstree({
+                $(element)
+                .on('select_node.jstree', function(node,selected,event){
+                  if(scope.onNodeSelected){
+                    scope.onNodeSelected(node,selected,event);
+                  }          
+                })
+                .jstree({
                     core: {
                         data: loadData
                     },
@@ -35,6 +41,8 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                     }
                    
                 });
+                
+                
                 
                 function loadData(obj,cb){                    
                     if(scope.loadTree){
