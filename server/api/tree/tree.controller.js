@@ -4,17 +4,17 @@ var _ = require('lodash');
 var Tree = require('./tree.model');
 var jcrOakAPI = require('jcr-oak-api');
 var tree_types = jcrOakAPI.tree_types;
-var jcrConnectionFactory =  require('../../jcr/connection');
+var jcrUtils =  require('../../jcr/utils');
 
 
-var connection = jcrConnectionFactory.getConnection();
-var treeService = jcrOakAPI.getTTreeService(connection);
-var rootService = jcrOakAPI.getTRootService(connection);
+
 
 // Get list of trees
-exports.index = function(req, res) {  
+exports.index = function(req, res) {
+    var connection = jcrUtils.getConnection();
     //get the root tree
-    rootService.getTree('/', function(err, tree) {
+    jcrOakAPI.getTRootService(connection).getTree('/', function(err, tree) {
+       connection.end();
        if(err) { return handleError(res, err); }
        if(!tree) { return res.send(404); }
        return res.json([tree]);
@@ -23,43 +23,46 @@ exports.index = function(req, res) {
 
 exports.getChildren = function(req,res){
     var path = decodeURIComponent(req.params.id);
-    rootService.getTree(path,function(err,tree){
+    var connection = jcrUtils.getConnection();
+    jcrOakAPI.getTRootService(connection).getTree(path,function(err,tree){
       if(err){return handleError(res, err);}
       if(!tree) { return res.send(404); }
-      treeService.getChildren(tree,function(err,children){
+      jcrOakAPI.getTTreeService(connection).getChildren(tree,function(err,children){
         if(err){return handleError(res, err);}
         if(!children) { return res.send(404); }
+        connection.end();
         return res.json(children);
-      });      
+      });
     });
 };
 
 // Get a single tree
 exports.show = function(req, res) {
-  rootService.getTree(req.params.id, function(err, tree) {
+  
+  jcrUtils.getRootService().getTree(req.params.id, function(err, tree) {
        if(err) { return handleError(res, err); }
        if(!tree) { return res.send(404); }
-       treeService.getProperties(tree,function(err,properties){
+       jcrUtils.getTreeService().getProperties(tree,function(err,properties){
            if(err) { return handleError(res, err); }
            if(!properties) { return res.send(404); }
            tree.properties = properties;
            return res.json(tree);
        });
-       
+
     });
 };
 
 // Creates a new tree in the DB.
 exports.create = function(req, res) {
-  rootService.getTree(req.body.parentPath,function(err,parentTree){
+  jcrUtils.getRootService().getTree(req.body.parentPath,function(err,parentTree){
       if(err || !parentTree.exists) { return handleError(res,err);}
       var children = new tree_types.TTree({path: req.body.parentPath });
-      treeService.addChild(req.body.name,children,function(err,tree){
+      jcrUtils.getTreeService().addChild(req.body.name,children,function(err,tree){
         if(err) { return handleError(res, err); }
         return res.json(201, tree);
     });
   });
-  
+
 };
 
 // Updates an existing tree in the DB.
@@ -79,14 +82,14 @@ exports.update = function(req, res) {
 // Deletes a tree from the DB.
 exports.destroy = function(req, res) {
   var path = decodeURIComponent(req.params.id);
-  rootService.getTree(path,function(err,tree){
+  jcrUtils.getRootService().getTree(path,function(err,tree){
     if(err) { return handleError(res, err); }
     if(!tree) { return res.send(404); }
-    treeService.remove(tree,function(err) {
+    jcrUtils.getTreeService().remove(tree,function(err) {
       if(err) { return handleError(res, err); }
       return res.send(204);
-    }); 
-  }); 
+    });
+  });
 };
 
 function handleError(res, err) {
