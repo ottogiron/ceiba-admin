@@ -19,4 +19,4 @@ NodeJS Based Apache Jackrabbit Oak Admin Tool
 * Go to jcr-smart-admin folder an run **npm install && bower install**
 
 ##Running
-* Run **grunt serve** 
+* Go to jcr-smart-admin folder and Run **grunt serve** 
