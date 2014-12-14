@@ -17,4 +17,6 @@ NodeJS Based Apache Jackrabbit Oak Admin Tool
 * Run [Jackrabbit Oak Thrift RPC Server](https://github.com/ottogiron/jcr-oak-rpc)
 * Clone the repository eg. **git clone https://github.com/ottogiron/jcr-smart-admin.git**
 * Go to jcr-smart-admin folder an run **npm install && bower install**
-* Run ** grunt serve ** 
+
+##Running
+* Run **grunt serve** 
