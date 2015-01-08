@@ -1,15 +1,16 @@
 define(['app/modules/directives','jquery','jstree'],function(directives,$){
     directives.
         directive('jumJsTree',['$timeout',function($timeout){
-            function link(scope,element,attrs){ 
-               
-                
+            function link(scope,element,attrs){
+
+
+
                 //initialize jstree
-                $(element)
+              var $jsTree = $(element)
                 .on('select_node.jstree', function(node,selected,event){
                   if(scope.onNodeSelected){
                     scope.onNodeSelected(node,selected,event);
-                  }          
+                  }
                 })
                 .jstree({
                     core: {
@@ -19,7 +20,7 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                         "contextmenu", "dnd", "search",
                         "state", "types", "wholerow"
                      ],
-                    contextmenu: {                        
+                    contextmenu: {
                         items: function($tree){
                             return {
                                 "Create": {
@@ -28,7 +29,7 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                                     "action": function(obj){
                                         scope.createTree($tree,obj);
                                     }
-                                    
+
                                 },
                                 "Delete": {
                                     label: "Delete",
@@ -39,12 +40,12 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                             };
                         }
                     }
-                   
+
                 });
+
                 
-                
-                
-                function loadData(obj,cb){                    
+
+                function loadData(obj,cb){
                     if(scope.loadTree){
                         scope.loadTree(obj,function(trees){
                             var newTree = transformtoJSTree(trees);
@@ -53,11 +54,11 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                     }
                     else{
                         cb.call(this,[]);
-                    }                   
+                    }
                 }
-                
+
                 function transformtoJSTree(trees) {
-                    return _.map(trees, function(tree) {                      
+                    return _.map(trees, function(tree) {
                         if(tree.path){
                             return {
                                 id: tree.path,
@@ -65,14 +66,14 @@ define(['app/modules/directives','jquery','jstree'],function(directives,$){
                                 children: true
                             };
                         }
-                        
+
                     });
-                } 
-                
+                }
+
             }
-            
+
             return {
                 link: link
-            }; 
+            };
     }]);
 });
