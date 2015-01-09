@@ -6,7 +6,10 @@ var jcrOakAPI = require('jcr-oak-api');
 var tree_types = jcrOakAPI.tree_types;
 var jcrUtils =  require('../../jcr/utils');
 
-
+function getCleanPath(path){
+  var npath = path === '/root' ? '/': path;
+  return npath;
+}
 
 
 // Get list of trees
@@ -22,7 +25,7 @@ exports.index = function(req, res) {
 };
 
 exports.getChildren = function(req,res){
-    var path = decodeURIComponent(req.params.id);
+    var path = getCleanPath(req.params.path);
     var connection = jcrUtils.getConnection();
     jcrOakAPI.getTRootService(connection).getTree(path,function(err,tree){
       if(err){return handleError(res, err);}
@@ -38,8 +41,8 @@ exports.getChildren = function(req,res){
 
 // Get a single tree
 exports.show = function(req, res) {
-  
-  jcrUtils.getRootService().getTree(req.params.id, function(err, tree) {
+  var path = getCleanPath(req.params.path);
+  jcrUtils.getRootService().getTree(path, function(err, tree) {
        if(err) { return handleError(res, err); }
        if(!tree) { return res.send(404); }
        jcrUtils.getTreeService().getProperties(tree,function(err,properties){
@@ -54,7 +57,8 @@ exports.show = function(req, res) {
 
 // Creates a new tree in the DB.
 exports.create = function(req, res) {
-  jcrUtils.getRootService().getTree(req.body.parentPath,function(err,parentTree){
+  var path = getCleanPath(req.params.path);
+  jcrUtils.getRootService().getTree(path,function(err,parentTree){
       if(err || !parentTree.exists) { return handleError(res,err);}
       var children = new tree_types.TTree({path: req.body.parentPath });
       jcrUtils.getTreeService().addChild(req.body.name,children,function(err,tree){
@@ -81,7 +85,8 @@ exports.update = function(req, res) {
 
 // Deletes a tree from the DB.
 exports.destroy = function(req, res) {
-  var path = decodeURIComponent(req.params.id);
+  var path = getCleanPath(req.params.path);
+  console.log(path);
   jcrUtils.getRootService().getTree(path,function(err,tree){
     if(err) { return handleError(res, err); }
     if(!tree) { return res.send(404); }

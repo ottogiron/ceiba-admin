@@ -3,14 +3,14 @@
 var express = require('express');
 var controller = require('./tree.controller');
 
+var pathRegExp = ':path(/*)';
 var router = express.Router();
-
 router.get('/', controller.index);
-router.get('/:id', controller.show);
-router.post('/:id/children', controller.create);
-router.get('/:id/children',controller.getChildren);
-router.put('/:id', controller.update);
-router.patch('/:id', controller.update);
-router.delete('/:id', controller.destroy);
+router.get(pathRegExp + '/children',controller.getChildren);
+router.get(pathRegExp, controller.show);
+router.post(pathRegExp + '/children', controller.create);
+router.put(pathRegExp, controller.update);
+router.patch(pathRegExp, controller.update);
+router.delete(pathRegExp, controller.destroy);
 
 module.exports = router;

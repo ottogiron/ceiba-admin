@@ -28,17 +28,13 @@ define(['angular',
                     });
                 }
                 else{
-                  var encodedPath = encode(tree.id);
+                  var path = getRequestPath(tree.id);
                   $scope.currentTree.path = tree.id;
-                  baseTree.one(encodedPath).getList('children').then(function(children){
+                  baseTree.one(path).getList('children').then(function(children){
                       cb(children);
                   });
                 }
             };
-
-            $scope.$watch('currentTree.path',function(currentPath){
-              console.log($scope.jqueryTree)
-            });
 
 
             $scope.createTree = function($tree,obj){
@@ -50,9 +46,9 @@ define(['angular',
 
                 openTreeModal(function(tree){
                     tree.parentPath = $tree.id;
-                    var encodedPath = encodeURIComponent($tree.id);
+                    var path = getRequestPath($tree.id);
                     Restangular.all('api/trees')
-                            .one(encodedPath)
+                            .one(path)
                             .all('children')
                             .post(tree).then(function(response){
                                 console.log(response);
@@ -65,7 +61,7 @@ define(['angular',
             $scope.deleteTree = function($tree){
                 bootbox.confirm("Are you sure?",function(result){
                     if(result){
-                        var encodedPath = encodeURIComponent($tree.id);
+                        var encodedPath = getRequestPath($tree.id);
                         Restangular.all('api/trees').one(encodedPath).remove().then(function(){
 
                         });
@@ -99,8 +95,20 @@ define(['angular',
                 $state.go('workbench.editTree',{path: selectedID},{location:false});
             };
 
+            function getRequestPath(path){
+              var npath = removeFirstSlash(path === "/" ? '/root': path);
+              return npath;
+            }
+
             function encode(text){
                 return encodeURIComponent(text);
+            }
+
+            function removeFirstSlash(path){
+              if(path[0] === '/'){
+                return path.slice(1,path.length);
+              }
+              return path;
             }
 
     }])
@@ -109,7 +117,7 @@ define(['angular',
 
         $scope.tree = {};
 
-        var jcrNodeTypesParentPath = encodeURIComponent('/jcr:system/jcr:nodeTypes');
+        var jcrNodeTypesParentPath = 'jcr:system/jcr:nodeTypes';
         $scope.nodeTypes = Restangular.all('api/trees').one(jcrNodeTypesParentPath).all('children').getList().$object;
         $scope.treeAction = treeData;
 
