@@ -1,4 +1,4 @@
-define(['app/modules/services'],function(services){
+define(['core/modules/services'],function(services){
 'use strict';
 services
   .factory('User', function ($resource) {

@@ -1,4 +1,4 @@
-define(['app/modules/services',
+define(['core/modules/services',
     'loadash',
     'socket.io'], function(services,_,io) {
     /* global io */

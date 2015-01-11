@@ -1,4 +1,4 @@
-define(['app/modules/controllers'],function(controllers){
+define(['core/modules/controllers'],function(controllers){
    'use strict';
 
 controllers

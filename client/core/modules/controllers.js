@@ -1,5 +1,5 @@
 define(['angular'
-    ,'app/modules/directives'
+    ,'core/modules/directives'
     ,'angular.ui-bootstrap-tpls']
 ,function(angular){
     'use strict';

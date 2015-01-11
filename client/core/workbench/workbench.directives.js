@@ -1,4 +1,4 @@
-define(['app/modules/directives','jquery','jstree'],function(directives,$){
+define(['core/modules/directives','jquery','jstree'],function(directives,$){
     directives.
         directive('jumJsTree',['$timeout',function($timeout){
             function link(scope,element,attrs){

@@ -1,4 +1,4 @@
-define(['angular','app/modules/controllers'
+define(['angular','core/modules/controllers'
 ,'components/auth/auth.service'
 ,'components/auth/user.service'],function(angular,controllers){
   'use strict';

@@ -51,7 +51,7 @@ module.exports = function (grunt) {
         //  '<%= yeoman.client %>/{app,components}/**/*.js',
           '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
           '!<%= yeoman.client %>/{app,components}/**/*.mock.js',
-          '!<%= yeoman.client %>/app/app.js'],
+          '!<%= yeoman.client %>/core/app.js'],
         tasks: ['injector:scripts']
       },
       injectCss: {
@@ -302,7 +302,7 @@ module.exports = function (grunt) {
           removeScriptTypeAttributes: true,
           removeStyleLinkTypeAttributes: true
         },
-        usemin: 'app/app.js'
+        usemin: 'core/app.js'
       },
       main: {
         cwd: '<%= yeoman.client %>',
@@ -434,7 +434,7 @@ module.exports = function (grunt) {
       },
       server: {
         files: {
-          '.tmp/app/app.css' : '<%= yeoman.client %>/app/app.less'
+          '.tmp/core/app.css' : '<%= yeoman.client %>/core/app.less'
         }
       },
     },
@@ -457,7 +457,7 @@ module.exports = function (grunt) {
         files: {
 //          '<%= yeoman.client %>/index.html': [
 //              ['{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-//               '!{.tmp,<%= yeoman.client %>}/app/app.js',
+//               '!{.tmp,<%= yeoman.client %>}/core/app.js',
 //               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
 //               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
 //            ]
@@ -468,7 +468,7 @@ module.exports = function (grunt) {
       less: {
         options: {
           transform: function(filePath) {
-            filePath = filePath.replace('/client/app/', '');
+            filePath = filePath.replace('/client/core/', '');
             filePath = filePath.replace('/client/components/', '');
             return '@import \'' + filePath + '\';';
           },
@@ -476,9 +476,9 @@ module.exports = function (grunt) {
           endtag: '// endinjector'
         },
         files: {
-          '<%= yeoman.client %>/app/app.less': [
+          '<%= yeoman.client %>/core/app.less': [
             '<%= yeoman.client %>/{app,components}/**/*.less',
-            '!<%= yeoman.client %>/app/app.less'
+            '!<%= yeoman.client %>/core/app.less'
           ]
         }
       },
@@ -528,7 +528,7 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',
-        'injector:less', 
+        'injector:less',
         'concurrent:server',
         'injector',
       //  'bowerInstall',
@@ -540,7 +540,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'env:all',
-      'injector:less', 
+      'injector:less',
       'concurrent:server',
       'injector',
      // 'bowerInstall',
@@ -570,7 +570,7 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',
-        'injector:less', 
+        'injector:less',
         'concurrent:test',
         'injector',
         'autoprefixer',
@@ -583,7 +583,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'env:test',
-        'injector:less', 
+        'injector:less',
         'concurrent:test',
         'injector',
        // 'bowerInstall',
@@ -601,7 +601,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'injector:less', 
+    'injector:less',
     'concurrent:dist',
     'injector',
     // 'bowerInstall',

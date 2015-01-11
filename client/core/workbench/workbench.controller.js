@@ -1,9 +1,9 @@
 define(['angular',
-    'app/modules/controllers',
+    'core/modules/controllers',
     'loadash',
     'bootbox',
-    'app/workbench/workbench.directives',
-    'app/common/directives/tree-editor'
+    'core/workbench/workbench.directives',
+    'core/common/directives/tree-editor'
     , 'components/auth/auth.service'
     , 'components/auth/user.service'
 
@@ -72,7 +72,7 @@ define(['angular',
 
             function openTreeModal(onresult){
                 var createModalInstance = $modal.open({
-                    templateUrl: 'app/workbench/templates/createdialog.html',
+                    templateUrl: 'core/workbench/templates/createdialog.html',
                     controller: 'ModalInstanceTreeCtrl',
                     resolve: {
                      treeData: function(){

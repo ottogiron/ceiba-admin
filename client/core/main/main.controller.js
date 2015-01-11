@@ -1,4 +1,4 @@
-define(['app/modules/controllers',
+define(['core/modules/controllers',
     'components/navbar/navbar.controller',
     ,'components/socket/socket.service'],function(controllers){
 'use strict';

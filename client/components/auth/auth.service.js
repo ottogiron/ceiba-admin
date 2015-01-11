@@ -1,4 +1,4 @@
-define(['app/modules/services',
+define(['core/modules/services',
         'components/auth/user.service'],function(services){
  'use strict';
 

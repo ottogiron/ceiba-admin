@@ -1,10 +1,10 @@
-define(['app/modules/directives'],function(directives){
+define(['core/modules/directives'],function(directives){
 directives.
     directive('jumTreeEditor',[function() {
         return {
           restrict: 'E',
           require: 'ngModel',
-          templateUrl: 'app/common/directives/templates/tree-editor.html',
+          templateUrl: 'core/common/directives/templates/tree-editor.html',
           link: function(scope, element, attrs, ngModel){
               if(!ngModel) return;
               

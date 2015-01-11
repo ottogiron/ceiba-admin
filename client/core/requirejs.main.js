@@ -14,7 +14,7 @@ requirejs.config({
        'angular.ui-router': 'bower_components/angular-ui-router/release/angular-ui-router',
        'angular.ui-tree' : 'bower_components/angular-ui-tree/dist/angular-ui-tree',
        'restangular': 'bower_components/restangular/dist/restangular',       
-       'modules': 'app/modules',
+       'modules': 'core/modules',
        'jstree': 'bower_components/jstree/dist/jstree',
        'bootbox': 'bower_components/bootbox/bootbox'
        
@@ -46,11 +46,11 @@ requirejs.config({
 });
 
 require(['jquery'
-    ,'app/app'
-    ,'app/main/main'
-    ,'app/account/account',
-     'app/admin/admin'
-    ,'app/workbench/workbench'],function($,app){
+    ,'core/app'
+    ,'core/main/main'
+    ,'core/account/account',
+     'core/admin/admin'
+    ,'core/workbench/workbench'],function($,app){
     
      app.initialize($('body')[0]);
        

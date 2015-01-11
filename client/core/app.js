@@ -1,6 +1,6 @@
 define(['modules/base-app',
-       'app/modules/services',
-       'app/modules/directives',
+       'core/modules/services',
+       'core/modules/directives',
        'angular.resource',
        'angular.cookies',
        'angular.sanitize',
