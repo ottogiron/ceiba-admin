@@ -45,13 +45,12 @@ define(['angular',
                 };
 
                 openTreeModal(function(tree){
-                    tree.parentPath = $tree.id;
                     var path = getRequestPath($tree.id);
                     Restangular.all('api/trees')
                             .one(path)
                             .all('children')
                             .post(tree).then(function(response){
-                                console.log(response);
+                                $scope.$jsTree.jstree('refresh_node',$tree.id);
                             });
                 });
 
@@ -61,9 +60,9 @@ define(['angular',
             $scope.deleteTree = function($tree){
                 bootbox.confirm("Are you sure?",function(result){
                     if(result){
-                        var encodedPath = getRequestPath($tree.id);
-                        Restangular.all('api/trees').one(encodedPath).remove().then(function(){
-
+                        var path = getRequestPath($tree.id);
+                        Restangular.all('api/trees').one(path).remove().then(function(){
+                          $scope.$jsTree.jstree('refresh_node',$tree.parent);
                         });
                     }
                 });

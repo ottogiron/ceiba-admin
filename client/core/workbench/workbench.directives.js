@@ -36,6 +36,13 @@ define(['core/modules/directives','jquery','jstree'],function(directives,$){
                                     "action": function(obj){
                                         scope.deleteTree($tree,obj);
                                     }
+                                },
+                                "Refresh": {
+                                  label: "Refresh",
+                                  "action": function(obj){
+                                    console.log($tree.id);
+                                    $jsTree.jstree('refresh',$tree.id);
+                                  }
                                 }
                             };
                         }
@@ -43,7 +50,7 @@ define(['core/modules/directives','jquery','jstree'],function(directives,$){
 
                 });
 
-                
+               scope.$jsTree = $jsTree;
 
                 function loadData(obj,cb){
                     if(scope.loadTree){

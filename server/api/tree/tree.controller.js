@@ -60,7 +60,7 @@ exports.create = function(req, res) {
   var path = getCleanPath(req.params.path);
   jcrUtils.getRootService().getTree(path,function(err,parentTree){
       if(err || !parentTree.exists) { return handleError(res,err);}
-      var children = new tree_types.TTree({path: req.body.parentPath });
+      var children = new tree_types.TTree({path: path });
       jcrUtils.getTreeService().addChild(req.body.name,children,function(err,tree){
         if(err) { return handleError(res, err); }
         return res.json(201, tree);
