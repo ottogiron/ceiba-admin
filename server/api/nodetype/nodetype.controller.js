@@ -2,12 +2,17 @@
 
 var _ = require('lodash');
 var Nodetype = require('./nodetype.model');
+var jcrOakAPI = require('jcr-oak-api');
+var jcrUtils =  require('../../jcr/utils');
 
 // Get list of nodetypes
 exports.index = function(req, res) {
-  Nodetype.find(function (err, nodetypes) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, nodetypes);
+  var connection = jcrUtils.getConnection();
+  var nodeTypeManager = jcrOakAPI.getTNodeTypeManager(connection);
+  nodeTypeManager.getAllNodeTypes(function(err,allNodeTypes){
+    if(err){ return handleError(res,err);}
+    connection.end();
+    return res.json(allNodeTypes);
   });
 };
 
