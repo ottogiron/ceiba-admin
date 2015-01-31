@@ -5,7 +5,9 @@ var app = require('../../app');
 var request = require('supertest');
 var jcrOakAPI = require('jcr-oak-api');
 var jcrUtils =  require('../../jcr/utils');
-
+var async = require('async');
+var treeService = require('../../api/tree/tree.service');
+var nodeTypeService = require('../../api/nodetype/nodetype.service');
 
 describe('GET /api/nodetypes', function() {
 var connection;
@@ -39,9 +41,24 @@ var connection;
     nodeTypeManager.should.be.ok;
     nodeTypeManager.getAllNodeTypes(function(err,nodeTypes){
       nodeTypes.should.be.an.instanceOf(Array);
-      nodeTypes.length.should.be.above(0);    
+      nodeTypes.length.should.be.above(0);
       done();
     });
+  });
+
+  it('should  return the nodetype with his properties definition based on a path',function(done){
+
+    var path = '/';
+
+    nodeTypeService.getNodeType(connection, path, function(err, nodetype){
+      if(err){throw err};
+      nodetype.should.be.an.instanceof(Object);
+      nodetype.should.have.property('propertyDefinitions');
+      nodetype.should.have.property('childNodeDefinitions');
+      done();
+    });
+
+
   });
 
 });
