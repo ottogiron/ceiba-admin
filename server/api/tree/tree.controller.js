@@ -5,6 +5,7 @@ var Tree = require('./tree.model');
 var jcrOakAPI = require('jcr-oak-api');
 var jcrUtils =  require('../../jcr/utils');
 var treeService = require('../../api/tree/tree.service');
+var nodeTypeService = require('../../api/nodetype/nodetype.service');
 
 function getCleanPath(path){
   var npath = path === '/root' ? '/': path;
@@ -35,11 +36,21 @@ exports.getChildren = function(req,res){
     });
 };
 
+exports.getNodeType = function(req, res){
+  var path = getCleanPath(req.params.path);
+  var connection = jcrUtils.getConnection();
+  nodeTypeService.getNodeType(connection, path, function(err, nodetype){
+    connection.end();
+    if(err){return handleError(res, err);}
+    if(!nodetype) { return res.send(404); }
+    return res.json(nodetype);
+  });
+};
+
 // Get a single tree
 exports.show = function(req, res) {
   var path = getCleanPath(req.params.path);
   var connection = jcrUtils.getConnection();
-
   treeService.getTree(connection, path, function(err, tree){
     connection.end();
     if(err) { return handleError(res, err); }
@@ -84,6 +95,8 @@ exports.destroy = function(req, res) {
     return res.send(204);
   });
 };
+
+
 
 function handleError(res, err) {
   return res.send(500, err);

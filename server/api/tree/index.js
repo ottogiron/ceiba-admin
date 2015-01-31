@@ -6,7 +6,11 @@ var controller = require('./tree.controller');
 var pathRegExp = ':path(/*)';
 var router = express.Router();
 router.get('/', controller.index);
+
+//these take precedence
 router.get(pathRegExp + '/children',controller.getChildren);
+router.get(pathRegExp + "/nodetype", controller.getNodeType);
+
 router.get(pathRegExp, controller.show);
 router.post(pathRegExp + '/children', controller.create);
 router.put(pathRegExp, controller.update);

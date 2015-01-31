@@ -129,8 +129,16 @@ define(['angular',
           $modalInstance.dismiss('cancel');
         };
     }])
-    .controller('WorkbenchTreeEditorCtrl',['$scope','$stateParams',function($scope,$stateParams){
+    .controller('WorkbenchTreeEditorCtrl',['$scope','$stateParams', 'Restangular',function($scope, $stateParams, Restangular){
        $scope.tree = $stateParams;
+       var baseTree = Restangular.one('api/trees' + $scope.tree.path);
+
+       baseTree.one('nodetype')
+        .get().
+         then(function(nodetype){
+            $scope.nodetype = nodetype;
+         });
+
     }]);
 
 
