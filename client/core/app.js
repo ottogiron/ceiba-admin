@@ -59,8 +59,9 @@ app
       }
     };
   })
-  .run(function ($rootScope, $location, Auth) {
+  .run(['$rootScope','$location','Auth',function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
+
     $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
         if (next.authenticate && !loggedIn) {
@@ -68,7 +69,7 @@ app
         }
       });
     });
-  });
+  }]);
 
   return app;
 
