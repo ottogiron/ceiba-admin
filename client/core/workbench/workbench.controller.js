@@ -133,6 +133,10 @@ define(['angular',
        $scope.tree = $stateParams;
        var baseTree = Restangular.one('api/trees' + $scope.tree.path);
 
+         $scope.user = {
+           name: 'awesome user'
+         }; 
+
        baseTree.one('nodetype')
         .get().
          then(function(nodetype){

@@ -3,7 +3,7 @@ requirejs.config({
     paths: {
        'jquery': "bower_components/jquery/dist/jquery",
        'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
-       'socket.io': 'socket.io/socket.io', 
+       'socket.io': 'socket.io/socket.io',
        'angular': "bower_components/angular/angular",
        'angular.resource': 'bower_components/angular-resource/angular-resource',
        'angular.cookies': 'bower_components/angular-cookies/angular-cookies',
@@ -13,14 +13,15 @@ requirejs.config({
        'angular.socket-io': 'bower_components/angular-socket-io/socket',
        'angular.ui-router': 'bower_components/angular-ui-router/release/angular-ui-router',
        'angular.ui-tree' : 'bower_components/angular-ui-tree/dist/angular-ui-tree',
-       'restangular': 'bower_components/restangular/dist/restangular',       
+       'restangular': 'bower_components/restangular/dist/restangular',
        'modules': 'core/modules',
        'jstree': 'bower_components/jstree/dist/jstree',
-       'bootbox': 'bower_components/bootbox/bootbox'
-       
+       'bootbox': 'bower_components/bootbox/bootbox',
+       'angular.xeditable': 'bower_components/angular-xeditable/dist/js/xeditable.min'
+
     },
     shim: {
-        'angular': {            
+        'angular': {
             exports: 'angular'
         },
         'socket.io':{
@@ -40,8 +41,9 @@ requirejs.config({
         'restangular': ['angular','loadash'],
         'angular-tree-control': ['angular'],
         'jstree': ['jquery'],
-        'bootstrap': ['jquery']
-        
+        'bootstrap': ['jquery'],
+        'angular.xeditable': ['angular']
+
     }
 });
 
@@ -51,17 +53,7 @@ require(['jquery'
     ,'core/account/account',
      'core/admin/admin'
     ,'core/workbench/workbench'],function($,app){
-    
+
      app.initialize($('body')[0]);
-       
+
 });
-
-
-
-
- 
-      
-      
-
-
-

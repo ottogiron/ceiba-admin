@@ -4,20 +4,22 @@ define(['modules/base-app',
        'angular.resource',
        'angular.cookies',
        'angular.sanitize',
-       'angular.ui-bootstrap-tpls',         
-       'angular.ui-router',       
-       'restangular',       
+       'angular.ui-bootstrap-tpls',
+       'angular.ui-router',
+       'angular.xeditable',
+       'restangular',
        'components/auth/auth.service'],function(baseApp){
-       
+
 'use strict';
 
 var app = baseApp.create('jcrSmartAdminApp',[
   'ngCookies',
   'ngResource',
-  'ngSanitize',  
+  'ngSanitize',
   'ui.router',
   'ui.bootstrap',
-  'restangular',  
+  'restangular',
+  'xeditable',
   'jcrSmartAdmin.controllers',
   'jcrSmartAdmin.services',
   'jcrSmartAdmin.directives'
@@ -67,8 +69,7 @@ app
       });
     });
   });
-  
+
   return app;
 
 });
-
