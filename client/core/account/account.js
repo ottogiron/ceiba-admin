@@ -4,7 +4,7 @@ define(['core/app'
 ,'core/account/signup/signup.controller'],function(app){
    'use strict';
 app
-  .config(function ($stateProvider) {
+  .config(['$stateProvider',function ($stateProvider) {
     $stateProvider
       .state('login', {
         url: '/login',
@@ -22,5 +22,5 @@ app
         controller: 'SettingsCtrl',
         authenticate: true
       });
-  }); 
+  }]);
 });
