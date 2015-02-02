@@ -1,7 +1,6 @@
-define(['angular',
-        'angular.socket-io'],function(angular){
+define(['angular'],function(angular){
     'use strict';
     var services = angular.module('jcrSmartAdmin.services'
-    ,['btford.socket-io']);
+    ,[]);
     return services;
 });
