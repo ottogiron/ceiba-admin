@@ -1,9 +1,10 @@
 var jcrOakAPI = require('jcr-oak-api');
 var async = require('async');
 var treeService = require('../../api/tree/tree.service');
+var _ = require('lodash');
+var tree_types = jcrOakAPI.tree_types;
 
-module.exports.getNodeType = function(connection, path, callback){
-
+var getNodeType = function(connection, path, callback){
 
   var nodeTypeManager = jcrOakAPI.getTNodeTypeManager(connection);
 
@@ -16,7 +17,10 @@ module.exports.getNodeType = function(connection, path, callback){
       function(tree,callback){
         var primaryType = tree.properties['jcr:primaryType'].stringValue;
         nodeTypeManager.getNodeType(primaryType,function(err,nodetype){
+
+          nodetype.propertyDefinitions = _.map(nodetype.propertyDefinitions,mapPropertyDefinitonTypesToString);
           callback(err,nodetype);
+
         });
 
       }
@@ -26,3 +30,17 @@ module.exports.getNodeType = function(connection, path, callback){
   });
 
 };
+
+function mapPropertyDefinitonTypesToString(propertyDefinition){
+
+    _.forEach(tree_types.TType,function(n,key){
+      if(n === propertyDefinition.requiredType){
+          propertyDefinition.requiredType = key;
+          return;
+      }
+    });
+   return propertyDefinition;
+}
+
+
+module.exports.getNodeType = getNodeType;

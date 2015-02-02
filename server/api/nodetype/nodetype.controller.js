@@ -5,6 +5,7 @@ var Nodetype = require('./nodetype.model');
 var jcrOakAPI = require('jcr-oak-api');
 var jcrUtils =  require('../../jcr/utils');
 
+
 // Get list of nodetypes
 exports.index = function(req, res) {
   var connection = jcrUtils.getConnection();

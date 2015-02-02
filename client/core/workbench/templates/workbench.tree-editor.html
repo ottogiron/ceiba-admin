@@ -1,1 +1,8 @@
-<a href="#" editable-text="user.name">{{ user.name || "empty" }}</a>
+<table class="table">
+  <tr>
+    <th>Property Name</th>
+  </tr>
+  <tr ng-repeat="propertyDefinition in nodetype.propertyDefinitions">
+    <td>{{propertyDefinition.name}}</td>
+  </tr>
+</table>

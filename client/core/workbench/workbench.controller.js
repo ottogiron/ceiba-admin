@@ -135,7 +135,12 @@ define(['angular',
 
          $scope.user = {
            name: 'awesome user'
-         }; 
+         };
+
+       baseTree.get()
+        .then(function(tree){
+          $scope.tree = tree;
+        });
 
        baseTree.one('nodetype')
         .get().
