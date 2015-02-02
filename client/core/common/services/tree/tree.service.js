@@ -1,7 +1,10 @@
 define(['core/modules/services'],function(services){
 
-  services.service('TreeService',function(){
-    //alert('alert desde tree service');
-  });
+  services.service('TreeService',['Restangular',function(Restangular){
+
+    var baseTree = Restangular.all('api/trees');
+    
+
+  }]);
 
 });
