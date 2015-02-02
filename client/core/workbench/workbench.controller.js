@@ -6,6 +6,7 @@ define(['angular',
     'core/common/directives/tree-editor'
     , 'components/auth/auth.service'
     , 'components/auth/user.service'
+    , 'core/common/services/nodetype.service'
 
 ], function(angular, controllers,_,bootbox) {
 
@@ -129,7 +130,7 @@ define(['angular',
           $modalInstance.dismiss('cancel');
         };
     }])
-    .controller('WorkbenchTreeEditorCtrl',['$scope','$stateParams', 'Restangular',function($scope, $stateParams, Restangular){
+    .controller('WorkbenchTreeEditorCtrl',['$scope','$stateParams', 'Restangular','NodeTypeService',function($scope, $stateParams, Restangular,NodeTypeService){
        $scope.tree = $stateParams;
        var baseTree = Restangular.one('api/trees' + $scope.tree.path);
 
@@ -140,13 +141,15 @@ define(['angular',
        baseTree.get()
         .then(function(tree){
           $scope.tree = tree;
+
+          baseTree.one('nodetype')
+           .get().
+            then(function(nodetype){
+               $scope.nodetype = nodetype;
+            });
+
         });
 
-       baseTree.one('nodetype')
-        .get().
-         then(function(nodetype){
-            $scope.nodetype = nodetype;
-         });
 
     }]);
 

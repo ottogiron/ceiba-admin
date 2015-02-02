@@ -1,8 +1,15 @@
+<h2>Properties</h2>
 <table class="table">
   <tr>
-    <th>Property Name</th>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Value/Values</th>
   </tr>
-  <tr ng-repeat="propertyDefinition in nodetype.propertyDefinitions">
+  <tr ng-repeat="propertyDefinition in nodetype.propertyDefinitions" ng-if="propertyDefinition.name!='*'">
     <td>{{propertyDefinition.name}}</td>
+    <td>
+      {{propertyDefinition.requiredType}}<span ng-if="propertyDefinition.isMultiple">[ ]</span>
+    </td>
+    <td>N/A</td>
   </tr>
 </table>
