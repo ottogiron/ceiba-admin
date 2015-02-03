@@ -32,7 +32,7 @@ describe('GET /api/trees', function() {
       .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);
-        res.body.should.be.instanceof(Array);
+        res.body.should.be.instanceof(Object);
         done();
       });
   });

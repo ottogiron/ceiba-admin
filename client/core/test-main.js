@@ -20,7 +20,7 @@ require.config({
     'ngmock': "bower_components/angular-mocks/angular-mocks",
     'jquery': "bower_components/jquery/dist/jquery",
     'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
-    'socket.io': '../socket.io/socket.io',
+    'socket.io': '../node_modules/socket.io-client/socket.io',
     'angular': "bower_components/angular/angular",
     'angular.resource': 'bower_components/angular-resource/angular-resource',
     'angular.cookies': 'bower_components/angular-cookies/angular-cookies',

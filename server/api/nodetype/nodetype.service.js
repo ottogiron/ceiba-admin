@@ -15,19 +15,22 @@ var getNodeType = function(connection, path, callback){
         })
       },
       function(tree,callback){
-        var primaryType = tree.properties['jcr:primaryType'].stringValue;
-        nodeTypeManager.getNodeType(primaryType,function(err,nodetype){
-
-          nodetype.propertyDefinitions = _.map(nodetype.propertyDefinitions,mapPropertyDefinitonTypesToString);
-          callback(err,nodetype);
-        });
-
+        var dummyType = {propertyDefinitions: [], childNodeDefinitions:[]};
+        if(tree.properties['jcr:primaryType']){
+          var primaryType = tree.properties['jcr:primaryType'].stringValue;
+          nodeTypeManager.getNodeType(primaryType,function(err,nodetype){
+            nodetype.propertyDefinitions = _.map(nodetype.propertyDefinitions,mapPropertyDefinitonTypesToString);
+            callback(err,nodetype);
+          });
+        }
+        else{
+          callback(null,dummyType);
+        }
       }
     ]
   ,function(err,nodetype){
       callback(err,nodetype);
   });
-
 };
 
 function mapPropertyDefinitonTypesToString(propertyDefinition){

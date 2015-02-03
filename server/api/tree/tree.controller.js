@@ -18,6 +18,7 @@ exports.index = function(req, res) {
     var connection = jcrUtils.getConnection();
     treeService.getRootTree(connection, function(err,rootTree){
       connection.end();
+      console.log('hola mundo');
       if(err) { return handleError(res, err); }
       if(!rootTree) { return res.send(404); }
       return res.json(rootTree);
@@ -98,5 +99,6 @@ exports.destroy = function(req, res) {
 
 
 function handleError(res, err) {
+  console.log(err);
   return res.send(500, err);
 }

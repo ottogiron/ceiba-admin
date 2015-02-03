@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
       'client/core/test-main.js',
       { pattern: 'client/bower_components/**/*.js', included: false},
+      { pattern: 'node_modules/socket.io-client/socket.io.js', included: false},
       { pattern: 'client/core/**/*.js', included: false},
       { pattern: 'client/core/**/*spec.js', included: false},
       { pattern: 'client/components/**/*spec.js', included: false}
