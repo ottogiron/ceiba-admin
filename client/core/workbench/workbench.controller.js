@@ -13,8 +13,9 @@ define(['angular',
 
     'use strict';
     controllers
-            .controller('WorkbenchCtrl',['$scope', '$http', 'Auth', 'User','Restangular','$modal','$state',
-    function($scope, $http, Auth, User,Restangular,$modal,$state) {
+    .controller('WorkbenchCtrl',
+    ['$scope', '$http', 'Auth', 'User','Restangular','$modal','$state','TreeService'
+    ,function($scope, $http, Auth, User,Restangular,$modal,$state,TreeService) {
 
       var baseTree = Restangular.all('api/trees');
 
@@ -23,15 +24,15 @@ define(['angular',
       $scope.loadTree = function(tree,cb){
           if(tree.id === '#'){
               //Get the root tree
-              baseTree.getList().then(function(rootTree){
-                 $scope.trees =  rootTree;
-                 cb(rootTree);
+              TreeService.getRoot().then(function(rootTree){
+                 $scope.trees =  [rootTree];
+                 cb([rootTree]);
               });
           }
           else{
             var path = getRequestPath(tree.id);
             $scope.currentTree.path = tree.id;
-            baseTree.one(path).getList('children').then(function(children){
+            TreeService.getChildren(path).then(function(children){
                 cb(children);
             });
           }

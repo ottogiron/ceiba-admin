@@ -20,14 +20,13 @@ exports.index = function(req, res) {
       connection.end();
       if(err) { return handleError(res, err); }
       if(!rootTree) { return res.send(404); }
-      return res.json([rootTree]);
+      return res.json(rootTree);
     });
 };
 
 exports.getChildren = function(req,res){
     var path = getCleanPath(req.params.path);
     var connection = jcrUtils.getConnection();
-
     treeService.getChildren(connection, path, function(err, children){
       connection.end();
       if(err){return handleError(res, err);}

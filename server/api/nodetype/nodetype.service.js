@@ -20,7 +20,6 @@ var getNodeType = function(connection, path, callback){
 
           nodetype.propertyDefinitions = _.map(nodetype.propertyDefinitions,mapPropertyDefinitonTypesToString);
           callback(err,nodetype);
-
         });
 
       }
