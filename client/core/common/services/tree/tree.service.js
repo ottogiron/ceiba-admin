@@ -11,7 +11,19 @@ define(['core/modules/services'],function(services){
 
     this.getChildren = function(path){
       return baseTree.one(path).getList('children');
-    }
+    };
+
+    this.addChild = function(path, _name_, _type_){
+      var tree = {name: _name_, type: _type_};
+      return baseTree.one(path)
+            .all('children')
+            .post(tree);
+    };
+
+    this.remove = function(path){
+      return baseTree
+            .one(path).remove();
+    };
 
   }]);
 

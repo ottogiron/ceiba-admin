@@ -41,16 +41,15 @@ define(['core/common/services/tree/tree.service','ngmock'],function($){
 
       $httpBackend.whenGET('/api/trees').respond(rootModel);
       $httpBackend.whenGET('/api/trees/root/children').respond(childrenModel);
-      $httpBackend.whenPOST("/accounts/1").respond(function(method, url, data, headers) {
+      $httpBackend.whenPOST("/api/trees/root/children").respond(function(method, url, data, headers) {
         return [200, treePostModel, ""];
       });
 
-
+  
     }));
 
     it('should return the root tree',function(){
       $httpBackend.expectGET('/api/trees');
-
       TreeService
         .getRoot()
         .then(function(rootTree){
@@ -58,7 +57,6 @@ define(['core/common/services/tree/tree.service','ngmock'],function($){
         });
 
       $httpBackend.flush();
-
     });
 
     it('should return a list of the root arrays',function(){
@@ -70,6 +68,20 @@ define(['core/common/services/tree/tree.service','ngmock'],function($){
           children.length.should.be.above(0);
       });
       $httpBackend.flush();
+    });
+
+    it('should add a new child to the parent based on his path child name',function(){
+      var newTree = {name: 'test', type: 'nt:folder'};
+      var path = 'root';
+
+      $httpBackend.expectPOST('/api/trees/root/children');
+
+      TreeService.addChild(path, newTree.name, newTree.type)
+        .then(function(createdTree){
+          createdTree.path.should.be.equal('/test');
+        });
+
+        $httpBackend.flush();
     });
 
     afterEach(function(){

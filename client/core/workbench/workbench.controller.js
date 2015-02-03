@@ -14,10 +14,8 @@ define(['angular',
     'use strict';
     controllers
     .controller('WorkbenchCtrl',
-    ['$scope', '$http', 'Auth', 'User','Restangular','$modal','$state','TreeService'
-    ,function($scope, $http, Auth, User,Restangular,$modal,$state,TreeService) {
-
-      var baseTree = Restangular.all('api/trees');
+    ['$scope', '$http', 'Auth', 'User','$modal','$state','TreeService'
+    ,function($scope, $http, Auth, User, $modal ,$state ,TreeService) {
 
       $scope.currentTree = {path: '/'};
 
@@ -48,52 +46,51 @@ define(['angular',
 
           openTreeModal(function(tree){
               var path = getRequestPath($tree.id);
-              Restangular.all('api/trees')
-                      .one(path)
-                      .all('children')
-                      .post(tree).then(function(response){
-                          $scope.$jsTree.jstree('refresh_node',$tree.id);
-                      });
+              TreeService
+              .addChild(path, tree.name, tree.type)
+              .then(function(response){
+                $scope.$jsTree.jstree('refresh_node',$tree.id);
+              });
           });
 
       };
 
 
       $scope.deleteTree = function($tree){
-          bootbox.confirm("Are you sure?",function(result){
-              if(result){
-                  var path = getRequestPath($tree.id);
-                  Restangular.all('api/trees').one(path).remove().then(function(){
-                    $scope.$jsTree.jstree('refresh_node',$tree.parent);
-                  });
-              }
-          });
+        bootbox.confirm("Are you sure?",function(result){
+          if(result){
+              var path = getRequestPath($tree.id);
+              TreeService.remove(path).then(function(){
+                $scope.$jsTree.jstree('refresh_node',$tree.parent);
+              });
+          }
+        });
       };
 
 
       function openTreeModal(onresult){
-          var createModalInstance = $modal.open({
-              templateUrl: 'core/workbench/templates/createdialog.html',
-              controller: 'ModalInstanceTreeCtrl',
-              resolve: {
-               treeData: function(){
-                   return $scope.treeData;
-               }
-              }
-          });
+        var createModalInstance = $modal.open({
+          templateUrl: 'core/workbench/templates/createdialog.html',
+          controller: 'ModalInstanceTreeCtrl',
+          resolve: {
+           treeData: function(){
+               return $scope.treeData;
+           }
+          }
+        });
 
-          createModalInstance.result.then(function(tree) {
-              onresult(tree);
-          }, function() {
-              console.info('Modal dismissed at: ' + new Date());
-          });
+        createModalInstance.result.then(function(tree) {
+            onresult(tree);
+        }, function() {
+            console.info('Modal dismissed at: ' + new Date());
+        });
       }
 
 
       $scope.onNodeSelected = function(node, selection, event){
-          var selectedID = selection.selected[0];
-          $scope.currentTree.path = selectedID;
-          $state.go('workbench.editTree',{path: selectedID},{location:false});
+        var selectedID = selection.selected[0];
+        $scope.currentTree.path = selectedID;
+        $state.go('workbench.editTree',{path: selectedID},{location:false});
       };
 
       function getRequestPath(path){
@@ -131,7 +128,8 @@ define(['angular',
           $modalInstance.dismiss('cancel');
         };
     }])
-    .controller('WorkbenchTreeEditorCtrl',['$scope','$stateParams', 'Restangular','NodeTypeService','TreeService'
+    .controller('WorkbenchTreeEditorCtrl'
+    ,['$scope','$stateParams', 'Restangular','NodeTypeService','TreeService'
     ,function($scope, $stateParams, Restangular,NodeTypeService,TreeService){
        $scope.tree = $stateParams;
        var baseTree = Restangular.one('api/trees' + $scope.tree.path);
