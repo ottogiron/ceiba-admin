@@ -51,10 +51,10 @@ var getChildren = function(connection, path, callback){
 };
 
 
-var addChild = function(connection, path, name, callback){
+var addChild = function(connection, path, name, primaryType, callback){
   jcrOakAPI.getTRootService(connection).getTree(path, function(err,parentTree){
       var children = new tree_types.TTree({path: path });
-      jcrOakAPI.getTTreeService(connection).addChild(name, children, function(err,tree){
+      jcrOakAPI.getTTreeService(connection).addChild(name, primaryType,children, function(err,tree){
         callback(err,tree);
       });
   });
@@ -67,7 +67,6 @@ var removeTree = function(connection, path, callback){
     });
   });
 };
-
 
 
 

@@ -47,7 +47,8 @@ define(['angular',
           openTreeModal(function(tree){
               var path = getRequestPath($tree.id);
               TreeService
-              .addChild(path, tree.name, tree.type)
+              //.addChild(path, tree.name, tree.type)
+              .addChild(path, tree.name, "nt:unstructured")
               .then(function(response){
                 $scope.$jsTree.jstree('refresh_node',$tree.id);
               });

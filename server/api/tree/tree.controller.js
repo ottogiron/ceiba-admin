@@ -64,7 +64,7 @@ exports.show = function(req, res) {
 exports.create = function(req, res) {
   var path = getCleanPath(req.params.path);
   var connection = jcrUtils.getConnection();
-  treeService.addChild(connection, path, req.body.name, function(err,tree){
+  treeService.addChild(connection, path, req.body.name, req.body.type, function(err,tree){
     connection.end();
     if(err) { return handleError(res, err); }
     return res.json(201, tree);
