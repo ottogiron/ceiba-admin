@@ -47,12 +47,13 @@ requirejs.config({
     }
 });
 
-require(['jquery'
-    ,'core/app'
-    ,'core/main/main'
-    ,'core/account/account',
-     'core/admin/admin'
-    ,'core/workbench/workbench'],function($,app){
+require([
+    'jquery',
+    'core/app',
+    'core/main/main',
+    'core/account/account',
+    'core/admin/admin',
+    'core/workbench/workbench'],function($,app){
 
      app.initialize($('body')[0]);
 

@@ -25,6 +25,10 @@ define(['core/modules/services'],function(services){
             .one(path).remove();
     };
 
+    this.getNodeType = function(path){
+      return baseTree.one(path).one('nodetype').get();
+    };
+
   }]);
 
 });

@@ -7,9 +7,9 @@
         <input type="text" class="form-control" id="txtNewNodeName" ng-model="tree.name"/>
         <label class="control-label" for="txtNewNodeType">Node Type</label>
         <select class="form-control" id="txtNewNodeType"  ng-model="tree.type">
-            <option ng-repeat="nodeType in nodeTypes" value="{{nodeType.path}}">{{nodeType.name}}</option>
+            <option ng-repeat="nodeType in nodeTypes" value="{{nodeType.defaultPrimaryType}}">{{nodeType.defaultPrimaryType}}</option>
         </select>
-    </div>    
+    </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">OK</button>

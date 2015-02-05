@@ -15,37 +15,46 @@ define(['core/common/services/tree/tree.service','ngmock'],function($){
       baseTree = Restangular.all('api/trees');
       var rootModel= {path:'/'};
       var childrenModel = [
-                            {
-                              "path": "/jcr:system",
-                              "root": false,
-                              "exists": true,
-                              "name": "jcr:system",
-                              "status": 0
-                            },
-                            {
-                              "path": "/oak:index",
-                              "root": false,
-                              "exists": true,
-                              "name": "oak:index",
-                              "status": 0
-                            },
-                            {
-                              "path": "/rep:security",
-                              "root": false,
-                              "exists": true,
-                              "name": "rep:security",
-                              "status": 0
-                            }
-                          ];
+        {
+          "path": "/jcr:system",
+          "root": false,
+          "exists": true,
+          "name": "jcr:system",
+          "status": 0
+        },
+        {
+          "path": "/oak:index",
+          "root": false,
+          "exists": true,
+          "name": "oak:index",
+          "status": 0
+        },
+        {
+          "path": "/rep:security",
+          "root": false,
+          "exists": true,
+          "name": "rep:security",
+          "status": 0
+        }
+      ];
       var treePostModel = {"path":"/test","root":false,"exists":true,"name":"test","status":0};
+
+      var rootNodeTypeModel = {
+        name: 'rep:root',
+        propertyDefinitions: [],
+        childNodeDefinitions: []
+      }
 
       $httpBackend.whenGET('/api/trees').respond(rootModel);
       $httpBackend.whenGET('/api/trees/root/children').respond(childrenModel);
-      $httpBackend.whenPOST("/api/trees/root/children").respond(function(method, url, data, headers) {
+      $httpBackend.whenGET('/api/trees/root/nodetype').respond(rootNodeTypeModel);
+      $httpBackend.whenPOST('/api/trees/root/children').respond(function(method, url, data, headers) {
         return [200, treePostModel, ""];
       });
 
-  
+
+
+
     }));
 
     it('should return the root tree',function(){
@@ -81,6 +90,16 @@ define(['core/common/services/tree/tree.service','ngmock'],function($){
           createdTree.path.should.be.equal('/test');
         });
 
+        $httpBackend.flush();
+    });
+
+    it('should return the tree nodetype',function(){
+      var path = '/';
+      $httpBackend.expectGET('/api/trees/root/nodetype')
+      TreeService.getNodeType('root')
+        .then(function(nodetype){
+          nodetype.should.have.property('name');
+        });
         $httpBackend.flush();
     });
 
